@@ -4,17 +4,19 @@ issue](https://github.com/Azure/azure-sdk-for-net/issues/27472).
 
 Note: the TF configuration uses [beta resources from the azurerm
 provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/3.0-beta).
+Following env var is required:
+```
+export ARM_THREEPOINTZERO_BETA_RESOURCES=true
+```
 
 ## Terraform apply
 Use iot hub as function app trigger:
 ```
-export ARM_THREEPOINTZERO_BETA_RESOURCES=true
 terraform apply -var 'resource_group_name=azure-func-iothub-identity-connection'
 ```
 
 Switch to eventhub as function app trigger:
 ```
-export ARM_THREEPOINTZERO_BETA_RESOURCES=true
 terraform apply -var 'resource_group_name=azure-func-iothub-identity-connection' -var 'consume_iothub=false'
 ```
 
