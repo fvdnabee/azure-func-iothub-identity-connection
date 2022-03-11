@@ -85,16 +85,11 @@ resource "azurerm_windows_function_app" "funcapp" {
     FUNCTION_APP_EDIT_MODE = "readonly"
 
     # The iothub-events-func expects an app setting named eventHubName with the
-    # Use IoT hub:
-    # eventHubName = azurerm_iothub.my_hub.name
-    # Use event hub:
+    # name of the event hub:
     eventHubName = local.event_hub_name
 
     # IoT hub function binding configuration:
     # https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-event-iot-trigger?tabs=javascript#identity-based-connections
-    # Use Iot hub:
-    # "${var.connection_name_prefix}__fullyQualifiedNamespace" = "${azurerm_iothub.my_hub.event_hub_events_namespace}.servicebus.windows.net"
-    # Use event hub:
     "${var.connection_name_prefix}__fullyQualifiedNamespace" = local.event_hub_fqns
     # # Use user-assigned identity to authenticate with IoT hub:
     # # https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference?tabs=blob#common-properties-for-identity-based-connections
@@ -104,9 +99,6 @@ resource "azurerm_windows_function_app" "funcapp" {
     # There appears to be a bug in the event hub binding, where the connection
     # setings are not being picked up. Prefixing the prefix with AzureWebJobs
     # might be a work around according to https://github.com/Azure/azure-sdk-for-net/issues/26663
-    # Use Iot hub:
-    # "AzureWebJobs${var.connection_name_prefix}__fullyQualifiedNamespace" = "${azurerm_iothub.my_hub.event_hub_events_namespace}.servicebus.windows.net"
-    # Use event hub:
     "AzureWebJobs${var.connection_name_prefix}__fullyQualifiedNamespace" = local.event_hub_fqns
     # # Use user-assigned identity to authenticate with IoT hub:
     # # https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference?tabs=blob#common-properties-for-identity-based-connections
