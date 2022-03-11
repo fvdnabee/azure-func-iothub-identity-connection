@@ -1,0 +1,8 @@
+{
+  "name": "consumer-func",
+  "version": "0.1.0",
+  "description": "Consume events from IoT hub.",
+  "scripts" : {
+    "test": "echo \"No tests yet...\""
+  }
+}
